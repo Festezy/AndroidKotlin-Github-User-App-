@@ -44,7 +44,7 @@ class DetailUserViewModel: ViewModel() {
                     Log.d("DetailUsersViewModel", "isSuccessful: ${response.body()}")
                     _getUserDetail.value = response.body()
                 } else {
-                    Log.d("DetailUsersViewModel", "isfail: ${response.message()}")
+                    Log.d("DetailUsersViewModel", "isFailing: ${response.message()}")
                 }
             }
 
