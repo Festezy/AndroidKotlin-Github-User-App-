@@ -19,7 +19,6 @@ class UserAdapter(private val context: Context) :
         fun bind(username: ItemsItem) {
             Glide.with(itemView.context).load(username.avatarUrl).into(binding.imgPhoto)
             binding.tvName.text = "${username.login}"
-//            binding.tvUserName.text = "${username.login}"
         }
     }
 

@@ -33,7 +33,6 @@ class MainActivity : AppCompatActivity() {
             searchView
                 .editText
                 .setOnEditorActionListener { textView, actionId, event ->
-//                    searchBar.text = searchView.text
                     searchView.hide()
                     Toast.makeText(this@MainActivity, searchView.text, Toast.LENGTH_SHORT).show()
 
