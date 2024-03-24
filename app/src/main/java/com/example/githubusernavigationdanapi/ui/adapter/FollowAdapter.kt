@@ -34,11 +34,11 @@ class FollowAdapter(private val context: Context): ListAdapter<ItemsItem, Follow
     companion object {
         val DIFF_CALLBACK = object : DiffUtil.ItemCallback<ItemsItem>() {
             override fun areItemsTheSame(oldItem: ItemsItem, newItem: ItemsItem): Boolean {
-                return oldItem == newItem
+                return newItem == oldItem
             }
 
             override fun areContentsTheSame(oldItem: ItemsItem, newItem: ItemsItem): Boolean {
-                return oldItem == newItem
+                return  newItem == oldItem
             }
         }
     }

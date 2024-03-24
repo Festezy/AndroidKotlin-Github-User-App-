@@ -34,7 +34,7 @@ class UserAdapter(private val context: Context) :
 
         holder.itemView.setOnClickListener {
             Intent(context, DetailUsersActivity::class.java).also{
-                it.putExtra(SectionsPagerAdapter.EXTRA_USERNAME, items.login)
+                it.putExtra(DetailUsersActivity.EXTRA_USERNAME, items.login)
                 context.startActivity(it)
             }
         }

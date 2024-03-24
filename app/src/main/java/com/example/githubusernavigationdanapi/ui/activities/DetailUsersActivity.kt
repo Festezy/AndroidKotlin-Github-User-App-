@@ -26,6 +26,7 @@ class DetailUsersActivity : AppCompatActivity() {
             R.string.tab_text_1,
             R.string.tab_text_2
         )
+        const val EXTRA_USERNAME = "extra_username"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,11 +43,12 @@ class DetailUsersActivity : AppCompatActivity() {
         }.attach()
         supportActionBar?.elevation = 0f
 
-        getUserDetail()
+        val username = intent.getStringExtra(EXTRA_USERNAME)
+        getUserDetail(username)
     }
 
-    private fun getUserDetail() {
-        val client = ApiConfig.getApiService().getDetailUser("Festezy")
+    private fun getUserDetail(username: String?) {
+        val client = ApiConfig.getApiService().getDetailUser(username!!)
         client.enqueue(object : Callback<DetailUserResponse> {
             override fun onResponse(
                 call: Call<DetailUserResponse>,
@@ -56,7 +58,7 @@ class DetailUsersActivity : AppCompatActivity() {
                     Log.d("DetailUsersActivity", "isSuccessful: ${response.body()}")
                     setDataUser(response.body())
                 } else {
-                    Log.d("DetailUsersActivity", "onFailure: ${response.message()}")
+                    Log.d("DetailUsersActivity", "isfail: ${response.message()}")
                 }
             }
 

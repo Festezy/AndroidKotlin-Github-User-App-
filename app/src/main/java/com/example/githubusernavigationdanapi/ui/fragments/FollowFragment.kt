@@ -1,19 +1,15 @@
 package com.example.githubusernavigationdanapi.ui.fragments
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.githubusernavigationdanapi.R
-import com.example.githubusernavigationdanapi.data.response.GithubResponse
 import com.example.githubusernavigationdanapi.data.response.ItemsItem
 import com.example.githubusernavigationdanapi.data.retrofit.ApiConfig
 import com.example.githubusernavigationdanapi.databinding.FragmentFollowBinding
 import com.example.githubusernavigationdanapi.ui.adapter.FollowAdapter
-import com.example.githubusernavigationdanapi.ui.adapter.UserAdapter
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -21,9 +17,6 @@ import retrofit2.Response
 class FollowFragment : Fragment() {
     private var _binding: FragmentFollowBinding? = null
     private val binding get() = _binding!!
-
-    private var username: String? = null
-    private var position: Int?  = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,19 +30,22 @@ class FollowFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        var username: String? = null
+        var position: Int?  = null
+
         arguments?.let {
             position = it.getInt(ARG_POSITION)
             username = it.getString(ARG_USERNAME)
         }
         if (position == 1){
-            getFollowers()
+            getFollowers(username!!)
         } else {
-            getFollowing()
+            getFollowing(username!!)
         }
     }
 
-    private fun getFollowing() {
-        val client = ApiConfig.getApiService().getFollowing(username!!)
+    private fun getFollowing(username: String) {
+        val client = ApiConfig.getApiService().getFollowing(username)
         client.enqueue(object : Callback<List<ItemsItem>>{
             override fun onResponse(
                 call: Call<List<ItemsItem>>,
@@ -64,8 +60,8 @@ class FollowFragment : Fragment() {
         })
     }
 
-    private fun getFollowers() {
-        val client = ApiConfig.getApiService().getFollowers("festezy")
+    private fun getFollowers(username: String) {
+        val client = ApiConfig.getApiService().getFollowers(username)
         client.enqueue(object : Callback<List<ItemsItem>>{
             override fun onResponse(
                 call: Call<List<ItemsItem>>,
