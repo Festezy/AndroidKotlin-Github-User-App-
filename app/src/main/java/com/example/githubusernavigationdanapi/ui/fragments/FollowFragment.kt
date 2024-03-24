@@ -5,11 +5,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.githubusernavigationdanapi.data.response.ItemsItem
 import com.example.githubusernavigationdanapi.data.retrofit.ApiConfig
 import com.example.githubusernavigationdanapi.databinding.FragmentFollowBinding
 import com.example.githubusernavigationdanapi.ui.adapter.FollowAdapter
+import com.example.githubusernavigationdanapi.ui.viewmodels.FollowFragmentViewModel
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -30,6 +32,8 @@ class FollowFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val followFragmentViewModel = ViewModelProvider(requireActivity(), ViewModelProvider.NewInstanceFactory())[FollowFragmentViewModel::class.java]
+
         var username: String? = null
         var position: Int?  = null
 
@@ -37,43 +41,23 @@ class FollowFragment : Fragment() {
             position = it.getInt(ARG_POSITION)
             username = it.getString(ARG_USERNAME)
         }
-        if (position == 1){
-            getFollowers(username!!)
-        } else {
-            getFollowing(username!!)
+
+        followFragmentViewModel.setSearchQuery(username!!)
+        followFragmentViewModel.fetchData()
+
+        followFragmentViewModel.isLoading.observe(requireActivity()){
+            showLoading(it)
         }
-    }
 
-    private fun getFollowing(username: String) {
-        val client = ApiConfig.getApiService().getFollowing(username)
-        client.enqueue(object : Callback<List<ItemsItem>>{
-            override fun onResponse(
-                call: Call<List<ItemsItem>>,
-                response: Response<List<ItemsItem>>
-            ) {
-                setUserFollows(response.body()!!)
+        if (position == 1){
+            followFragmentViewModel.getUserFollowers.observe(requireActivity()){
+                setUserFollows(it)
             }
-
-            override fun onFailure(call: Call<List<ItemsItem>>, t: Throwable) {
-                TODO("Not yet implemented")
+        } else {
+            followFragmentViewModel.getUserFollowing.observe(requireActivity()){
+                setUserFollows(it)
             }
-        })
-    }
-
-    private fun getFollowers(username: String) {
-        val client = ApiConfig.getApiService().getFollowers(username)
-        client.enqueue(object : Callback<List<ItemsItem>>{
-            override fun onResponse(
-                call: Call<List<ItemsItem>>,
-                response: Response<List<ItemsItem>>
-            ) {
-                setUserFollows(response.body()!!)
-            }
-
-            override fun onFailure(call: Call<List<ItemsItem>>, t: Throwable) {
-                TODO("Not yet implemented")
-            }
-        })
+        }
     }
 
     private fun setUserFollows(items: List<ItemsItem?>?) {
@@ -83,7 +67,14 @@ class FollowFragment : Fragment() {
         with(binding){
             rvFollows.layoutManager= LinearLayoutManager(requireActivity())
             rvFollows.adapter = adapter
-            rvFollows.setHasFixedSize(true)
+        }
+    }
+
+    private fun showLoading(isLoading: Boolean) {
+        if (isLoading) {
+            binding.progressBar.visibility = View.VISIBLE
+        } else {
+            binding.progressBar.visibility = View.GONE
         }
     }
 

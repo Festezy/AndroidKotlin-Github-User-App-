@@ -51,8 +51,6 @@ class MainActivity : AppCompatActivity() {
                     false
                 }
         }
-
-
     }
 
     private fun setUserData(items: List<ItemsItem?>?) {
