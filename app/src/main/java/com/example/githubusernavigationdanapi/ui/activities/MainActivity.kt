@@ -1,18 +1,18 @@
 package com.example.githubusernavigationdanapi.ui.activities
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.githubusernavigationdanapi.R
 import com.example.githubusernavigationdanapi.data.response.GithubResponse
 import com.example.githubusernavigationdanapi.data.response.ItemsItem
 import com.example.githubusernavigationdanapi.data.retrofit.ApiConfig
 import com.example.githubusernavigationdanapi.databinding.ActivityMainBinding
 import com.example.githubusernavigationdanapi.ui.adapter.UserAdapter
+import com.example.githubusernavigationdanapi.ui.viewmodels.MainViewModel
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -25,6 +25,9 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        val mainViewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory())[MainViewModel::class.java]
+
+
         with(binding) {
             searchView.setupWithSearchBar(searchBar)
             searchView
@@ -33,35 +36,22 @@ class MainActivity : AppCompatActivity() {
 //                    searchBar.text = searchView.text
                     searchView.hide()
                     Toast.makeText(this@MainActivity, searchView.text, Toast.LENGTH_SHORT).show()
-                    getUsers(searchView.text.toString())
+
+                    mainViewModel.setSearchQuery(searchView.text.toString())
+                    mainViewModel.fetchData()
+                    mainViewModel.getUserData.observe(this@MainActivity) {
+                        setUserData(it)
+                    }
+
+                    mainViewModel.isLoading.observe(this@MainActivity){
+                        showLoading(it)
+                    }
+
                     false
                 }
         }
 
 
-    }
-
-    private fun getUsers(username: String) {
-        showLoading(true)
-        val client = ApiConfig.getApiService().getUsers(username)
-        client.enqueue(object : Callback<GithubResponse> {
-            override fun onResponse(
-                call: Call<GithubResponse>,
-                response: Response<GithubResponse>
-            ) {
-                if (response.isSuccessful) {
-                    showLoading(false)
-                    Log.d("MainActivity", "isSuccessful: ${response.body()}")
-                    setUserData(response.body()!!.items)
-                } else {
-                    Log.d("MainActivity", "onFailure: ${response.message()}")
-                }
-            }
-
-            override fun onFailure(call: Call<GithubResponse>, t: Throwable) {
-                Log.d("MainActivity", "onFailure: ${t.message}")
-            }
-        })
     }
 
     private fun setUserData(items: List<ItemsItem?>?) {
