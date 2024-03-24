@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.githubusernavigationdanapi.R
@@ -41,6 +42,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun getUsers(username: String) {
+        showLoading(true)
         val client = ApiConfig.getApiService().getUsers(username)
         client.enqueue(object : Callback<GithubResponse> {
             override fun onResponse(
@@ -48,6 +50,7 @@ class MainActivity : AppCompatActivity() {
                 response: Response<GithubResponse>
             ) {
                 if (response.isSuccessful) {
+                    showLoading(false)
                     Log.d("MainActivity", "isSuccessful: ${response.body()}")
                     setUserData(response.body()!!.items)
                 } else {
@@ -70,6 +73,14 @@ class MainActivity : AppCompatActivity() {
             rvSearchUser.setHasFixedSize(true)
         }
 
+    }
+
+    private fun showLoading(isLoading: Boolean) {
+        if (isLoading) {
+            binding.progressBar.visibility = View.VISIBLE
+        } else {
+            binding.progressBar.visibility = View.GONE
+        }
     }
 
 }

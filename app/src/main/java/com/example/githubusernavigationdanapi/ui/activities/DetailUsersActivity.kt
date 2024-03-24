@@ -3,6 +3,7 @@ package com.example.githubusernavigationdanapi.ui.activities
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.annotation.StringRes
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
@@ -48,6 +49,7 @@ class DetailUsersActivity : AppCompatActivity() {
     }
 
     private fun getUserDetail(username: String?) {
+        showLoading(true)
         val client = ApiConfig.getApiService().getDetailUser(username!!)
         client.enqueue(object : Callback<DetailUserResponse> {
             override fun onResponse(
@@ -55,6 +57,7 @@ class DetailUsersActivity : AppCompatActivity() {
                 response: Response<DetailUserResponse>
             ) {
                 if (response.isSuccessful) {
+                    showLoading(false)
                     Log.d("DetailUsersActivity", "isSuccessful: ${response.body()}")
                     setDataUser(response.body())
                 } else {
@@ -75,6 +78,14 @@ class DetailUsersActivity : AppCompatActivity() {
             tvUsername.text = userData.login
             tvFollowers.text = userData.followers.toString()
             tvFollowing.text = userData.following.toString()
+        }
+    }
+
+    private fun showLoading(isLoading: Boolean) {
+        if (isLoading) {
+            binding.progressBar.visibility = View.VISIBLE
+        } else {
+            binding.progressBar.visibility = View.GONE
         }
     }
 }
