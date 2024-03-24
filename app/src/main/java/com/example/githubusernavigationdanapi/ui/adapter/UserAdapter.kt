@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.githubusernavigationdanapi.data.response.ItemsItem
 import com.example.githubusernavigationdanapi.databinding.ItemUsersBinding
-import com.example.githubusernavigationdanapi.ui.activities.DetailUsersActivity
+import com.example.githubusernavigationdanapi.ui.activities.DetailUserActivity
 
 class UserAdapter(private val context: Context) :
     ListAdapter<ItemsItem, UserAdapter.MyViewHolder>(DIFF_CALLBACK) {
@@ -33,8 +33,8 @@ class UserAdapter(private val context: Context) :
         holder.bind(items)
 
         holder.itemView.setOnClickListener {
-            Intent(context, DetailUsersActivity::class.java).also{
-                it.putExtra(DetailUsersActivity.EXTRA_USERNAME, items.login)
+            Intent(context, DetailUserActivity::class.java).also{
+                it.putExtra(DetailUserActivity.EXTRA_USERNAME, items.login)
                 context.startActivity(it)
             }
         }

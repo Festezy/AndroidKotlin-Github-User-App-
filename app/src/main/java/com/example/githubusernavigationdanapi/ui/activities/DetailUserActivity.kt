@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.annotation.StringRes
+import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.example.githubusernavigationdanapi.R
@@ -12,13 +13,14 @@ import com.example.githubusernavigationdanapi.data.response.DetailUserResponse
 import com.example.githubusernavigationdanapi.data.retrofit.ApiConfig
 import com.example.githubusernavigationdanapi.ui.adapter.SectionsPagerAdapter
 import com.example.githubusernavigationdanapi.databinding.ActivityDetailUsersBinding
+import com.example.githubusernavigationdanapi.ui.viewmodels.DetailUserViewModel
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class DetailUsersActivity : AppCompatActivity() {
+class DetailUserActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDetailUsersBinding
 
     companion object {
@@ -35,6 +37,8 @@ class DetailUsersActivity : AppCompatActivity() {
         binding = ActivityDetailUsersBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        val detailUserViewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory())[DetailUserViewModel::class.java]
+
         val sectionsPagerAdapter = SectionsPagerAdapter(this)
         val viewPager: ViewPager2 = binding.viewPager
         viewPager.adapter = sectionsPagerAdapter
@@ -45,35 +49,22 @@ class DetailUsersActivity : AppCompatActivity() {
         supportActionBar?.elevation = 0f
 
         val username = intent.getStringExtra(EXTRA_USERNAME)
-        getUserDetail(username)
-    }
 
-    private fun getUserDetail(username: String?) {
-        showLoading(true)
-        val client = ApiConfig.getApiService().getDetailUser(username!!)
-        client.enqueue(object : Callback<DetailUserResponse> {
-            override fun onResponse(
-                call: Call<DetailUserResponse>,
-                response: Response<DetailUserResponse>
-            ) {
-                if (response.isSuccessful) {
-                    showLoading(false)
-                    Log.d("DetailUsersActivity", "isSuccessful: ${response.body()}")
-                    setDataUser(response.body())
-                } else {
-                    Log.d("DetailUsersActivity", "isfail: ${response.message()}")
-                }
-            }
+        detailUserViewModel.setSearchQuery(username!!)
+        detailUserViewModel.fetchData()
 
-            override fun onFailure(call: Call<DetailUserResponse>, t: Throwable) {
-                Log.d("DetailUsersActivity", "onFailure: ${t.message}")
-            }
-        })
+        detailUserViewModel.getUserData.observe(this@DetailUserActivity){
+            setDataUser(it)
+        }
+
+        detailUserViewModel.isLoading.observe(this@DetailUserActivity){
+            showLoading(it)
+        }
     }
 
     private fun setDataUser(userData: DetailUserResponse?) {
         with(binding) {
-            Glide.with(this@DetailUsersActivity).load(userData!!.avatarUrl).into(profileImage)
+            Glide.with(this@DetailUserActivity).load(userData!!.avatarUrl).into(profileImage)
             tvName.text = userData.name
             tvUsername.text = userData.login
             tvFollowers.text = userData.followers.toString()

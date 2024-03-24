@@ -14,7 +14,7 @@
         android:theme="@style/Theme.GitHubUserNavigationDanAPI"
         tools:targetApi="31" >
         <activity
-            android:name=".ui.activities.DetailUsersActivity"
+            android:name=".ui.activities.DetailUserActivity"
             android:exported="false" />
         <activity
             android:name=".ui.activities.MainActivity"
