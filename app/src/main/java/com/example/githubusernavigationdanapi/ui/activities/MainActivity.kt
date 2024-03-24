@@ -39,6 +39,7 @@ class MainActivity : AppCompatActivity() {
 
                     mainViewModel.setSearchQuery(searchView.text.toString())
                     mainViewModel.fetchData()
+
                     mainViewModel.getUserData.observe(this@MainActivity) {
                         setUserData(it)
                     }

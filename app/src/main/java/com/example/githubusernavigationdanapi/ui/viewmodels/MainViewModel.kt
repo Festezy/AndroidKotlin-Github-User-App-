@@ -19,11 +19,9 @@ class MainViewModel: ViewModel() {
     val isLoading: LiveData<Boolean> = _isLoading
 
     private val _searchQuery = MutableLiveData<String>()
-
     fun setSearchQuery(query: String) {
         _searchQuery.value = query
     }
-
     fun fetchData() {
         // Retrieve data based on the current search query
         _searchQuery.value?.let { username ->
@@ -31,10 +29,8 @@ class MainViewModel: ViewModel() {
         }
     }
 
-    private val username: String = fetchData().toString()
-
     init {
-        getUser(username)
+        fetchData()
     }
 
     private fun getUser(username: String) {
