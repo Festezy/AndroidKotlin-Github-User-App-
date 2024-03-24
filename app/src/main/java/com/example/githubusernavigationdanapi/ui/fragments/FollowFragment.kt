@@ -62,7 +62,7 @@ class FollowFragment : Fragment() {
 
     private fun setUserFollows(items: List<ItemsItem?>?) {
 
-        val adapter = FollowAdapter(requireActivity())
+        val adapter = FollowAdapter()
         adapter.submitList(items)
         with(binding){
             rvFollows.layoutManager= LinearLayoutManager(requireActivity())

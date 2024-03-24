@@ -2,7 +2,6 @@ package com.example.githubusernavigationdanapi.ui.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.annotation.StringRes
 import androidx.lifecycle.ViewModelProvider
@@ -10,27 +9,14 @@ import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.example.githubusernavigationdanapi.R
 import com.example.githubusernavigationdanapi.data.response.DetailUserResponse
-import com.example.githubusernavigationdanapi.data.retrofit.ApiConfig
 import com.example.githubusernavigationdanapi.ui.adapter.SectionsPagerAdapter
 import com.example.githubusernavigationdanapi.databinding.ActivityDetailUsersBinding
 import com.example.githubusernavigationdanapi.ui.viewmodels.DetailUserViewModel
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class DetailUserActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDetailUsersBinding
-
-    companion object {
-        @StringRes
-        private val TAB_TITLES = intArrayOf(
-            R.string.tab_text_1,
-            R.string.tab_text_2
-        )
-        const val EXTRA_USERNAME = "extra_username"
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -78,5 +64,14 @@ class DetailUserActivity : AppCompatActivity() {
         } else {
             binding.progressBar.visibility = View.GONE
         }
+    }
+
+    companion object {
+        @StringRes
+        private val TAB_TITLES = intArrayOf(
+            R.string.tab_text_1,
+            R.string.tab_text_2
+        )
+        const val EXTRA_USERNAME = "extra_username"
     }
 }

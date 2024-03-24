@@ -1,5 +1,6 @@
 package com.example.githubusernavigationdanapi.data.retrofit
 
+import de.hdodenhof.circleimageview.BuildConfig
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -15,6 +16,7 @@ class ApiConfig {
 //                HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.NONE)
 //            }
 
+//            val mySuperScretKey = BuildConfig.KEY
             val authInterceptor = Interceptor { chain ->
                 val req = chain.request()
                 val requestHeaders = req.newBuilder()
@@ -39,5 +41,7 @@ class ApiConfig {
                 .build()
             return retrofit.create(ApiService::class.java)
         }
+
+//        const val BASE_URL = BuildConfig.BASE_URL
     }
 }

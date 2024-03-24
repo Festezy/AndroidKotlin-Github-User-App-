@@ -11,7 +11,7 @@ import com.example.githubusernavigationdanapi.data.response.ItemsItem
 import com.example.githubusernavigationdanapi.data.response.UserFollowsResponseItem
 import com.example.githubusernavigationdanapi.databinding.ItemUserFollowBinding
 
-class FollowAdapter(private val context: Context): ListAdapter<ItemsItem, FollowAdapter.MyViewHolder>(DIFF_CALLBACK) {
+class FollowAdapter(): ListAdapter<ItemsItem, FollowAdapter.MyViewHolder>(DIFF_CALLBACK) {
     class MyViewHolder(private val binding: ItemUserFollowBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(userFollows: ItemsItem){
             with(binding){

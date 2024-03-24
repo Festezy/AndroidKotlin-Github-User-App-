@@ -1,3 +1,5 @@
+import java.util.Properties
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
@@ -15,6 +17,13 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+//        val properties = Properties()
+//        properties.load(project.rootProject.file("local.properties").inputStream())
+//
+//        buildConfigField("String", "KEY", "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")
+//
+//        buildConfigField ("String", "BASE_URL", "https://api.github.com/")
     }
 
     buildTypes {

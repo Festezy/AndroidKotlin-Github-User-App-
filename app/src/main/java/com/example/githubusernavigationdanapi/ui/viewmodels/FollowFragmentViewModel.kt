@@ -1,11 +1,13 @@
 package com.example.githubusernavigationdanapi.ui.viewmodels
 
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.githubusernavigationdanapi.data.response.ItemsItem
 import com.example.githubusernavigationdanapi.data.retrofit.ApiConfig
+import com.example.githubusernavigationdanapi.ui.fragments.FollowFragment
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -56,6 +58,7 @@ class FollowFragmentViewModel: ViewModel() {
 
             override fun onFailure(call: Call<List<ItemsItem>>, t: Throwable) {
                 Log.d("FollowsViewModel", "onFailure: ${t.message}")
+                Toast.makeText(FollowFragment().requireActivity(), "onFailure: ${t.message}", Toast.LENGTH_SHORT).show()
             }
         })
     }
@@ -80,6 +83,7 @@ class FollowFragmentViewModel: ViewModel() {
 
             override fun onFailure(call: Call<List<ItemsItem>>, t: Throwable) {
                 Log.d("FollowsViewModel", "onFailure: ${t.message}")
+                Toast.makeText(FollowFragment().requireActivity(), "onFailure: ${t.message}", Toast.LENGTH_SHORT).show()
             }
         })
     }

@@ -1,12 +1,16 @@
 package com.example.githubusernavigationdanapi.ui.viewmodels
 
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
 import com.example.githubusernavigationdanapi.data.response.GithubResponse
 import com.example.githubusernavigationdanapi.data.response.ItemsItem
 import com.example.githubusernavigationdanapi.data.retrofit.ApiConfig
+import com.example.githubusernavigationdanapi.ui.activities.MainActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -53,6 +57,8 @@ class MainViewModel: ViewModel() {
 
             override fun onFailure(call: Call<GithubResponse>, t: Throwable) {
                 Log.d("MainActivity", "onFailure: ${t.message}")
+                val context = MainActivity()
+                Toast.makeText(context.applicationContext, "onFailure: ${t.message}", Toast.LENGTH_SHORT).show()
             }
         })
     }
