@@ -1,6 +1,6 @@
 package com.example.githubusernavigationdanapi.data.retrofit
 
-import de.hdodenhof.circleimageview.BuildConfig
+import com.example.githubusernavigationdanapi.BuildConfig
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -9,6 +9,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class ApiConfig {
     companion object{
+
         fun getApiService(): ApiService {
 //            val loggingInterceptor = if(BuildConfig.DEBUG) {
 //                HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
@@ -16,11 +17,11 @@ class ApiConfig {
 //                HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.NONE)
 //            }
 
-//            val mySuperScretKey = BuildConfig.KEY
+            val mySuperSecretKey = BuildConfig.KEY
             val authInterceptor = Interceptor { chain ->
                 val req = chain.request()
                 val requestHeaders = req.newBuilder()
-                    .addHeader("Authorization", "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")
+                    .addHeader("Authorization", "token $mySuperSecretKey")
                     .build()
                 chain.proceed(requestHeaders)
             }
@@ -34,14 +35,15 @@ class ApiConfig {
             val client = OkHttpClient.Builder()
                 .addInterceptor(authInterceptor)
                 .build()
+
             val retrofit = Retrofit.Builder()
-                .baseUrl("https://api.github.com/")
+                .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(client)
                 .build()
             return retrofit.create(ApiService::class.java)
         }
 
-//        const val BASE_URL = BuildConfig.BASE_URL
+        const val BASE_URL = BuildConfig.BASE_URL
     }
 }

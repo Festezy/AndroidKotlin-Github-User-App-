@@ -18,12 +18,8 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
-//        val properties = Properties()
-//        properties.load(project.rootProject.file("local.properties").inputStream())
-//
-//        buildConfigField("String", "KEY", "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")
-//
-//        buildConfigField ("String", "BASE_URL", "https://api.github.com/")
+        buildConfigField("String", "KEY", "\"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\"")
+        buildConfigField ("String", "BASE_URL", "\"https://api.github.com/\"")
     }
 
     buildTypes {
@@ -44,6 +40,7 @@ android {
     }
     buildFeatures{
         viewBinding = true
+        buildConfig = true
     }
 }
 
