@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">GitHubUser(Navigation dan API)</string>
+    <string name="app_name">GitHubUser</string>
 
     <string name="searchbar_hint">Masukkan kata</string>
     <string name="detail_user">Detail User</string>
@@ -19,4 +19,5 @@
     <string name="content_tab_text">This is Tab %1$d</string>
     <string name="user_name">username</string>
     <string name="name">name</string>
+    <string name="settings">settings</string>
 </resources>

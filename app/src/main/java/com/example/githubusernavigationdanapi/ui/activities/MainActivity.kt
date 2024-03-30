@@ -1,5 +1,6 @@
 package com.example.githubusernavigationdanapi.ui.activities
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -7,6 +8,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.githubusernavigationdanapi.R
 import com.example.githubusernavigationdanapi.data.response.GithubResponse
 import com.example.githubusernavigationdanapi.data.response.ItemsItem
 import com.example.githubusernavigationdanapi.data.retrofit.ApiConfig
@@ -25,7 +27,10 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val mainViewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory())[MainViewModel::class.java]
+        val mainViewModel = ViewModelProvider(
+            this,
+            ViewModelProvider.NewInstanceFactory()
+        )[MainViewModel::class.java]
 
 
         with(binding) {
@@ -43,12 +48,22 @@ class MainActivity : AppCompatActivity() {
                         setUserData(it)
                     }
 
-                    mainViewModel.isLoading.observe(this@MainActivity){
+                    mainViewModel.isLoading.observe(this@MainActivity) {
                         showLoading(it)
                     }
 
                     false
                 }
+            topAppBar.setOnMenuItemClickListener {
+                when (it.itemId) {
+                    R.id.settings -> {
+                        startActivity(Intent(this@MainActivity, FavoriteUserActivity::class.java))
+                        true
+                    }
+
+                    else -> false
+                }
+            }
         }
     }
 

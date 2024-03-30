@@ -34,6 +34,7 @@ class UserAdapter(private val context: Context) :
         holder.itemView.setOnClickListener {
             Intent(context, DetailUserActivity::class.java).also{
                 it.putExtra(DetailUserActivity.EXTRA_USERNAME, items.login)
+                it.putExtra(DetailUserActivity.EXTRA_URL, items.avatarUrl)
                 context.startActivity(it)
             }
         }

@@ -1,16 +1,19 @@
 package com.example.githubusernavigationdanapi.ui.viewmodels
 
+import android.app.Application
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.githubusernavigationdanapi.data.response.DetailUserResponse
 import com.example.githubusernavigationdanapi.data.retrofit.ApiConfig
+import com.example.githubusernavigationdanapi.database.FavoriteUser
+import com.example.githubusernavigationdanapi.repository.FavoriteUserRepository
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class DetailUserViewModel: ViewModel() {
+class DetailUserViewModel(application: Application): ViewModel() {
     private val _getUserDetail = MutableLiveData<DetailUserResponse>()
     val getUserData: LiveData<DetailUserResponse> = _getUserDetail
 
@@ -27,6 +30,18 @@ class DetailUserViewModel: ViewModel() {
             getUserDetail(username)
         }
     }
+
+    private val mFavoriteUserRepository: FavoriteUserRepository = FavoriteUserRepository(application)
+
+    fun insert(favoriteUser: FavoriteUser) {
+        mFavoriteUserRepository.insert(favoriteUser)
+    }
+    //    fun update(note: Note) {
+//        mNoteRepository.update(note)
+//    }
+//    fun delete(note: Note) {
+//        mNoteRepository.delete(note)
+//    }
 
     init {
         fetchData()
