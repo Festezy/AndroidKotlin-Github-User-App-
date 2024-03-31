@@ -5,7 +5,7 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
-@Database(entities = [FavoriteUser::class], version = 1)
+@Database(entities = [FavoriteUserEntity::class], version = 1)
 abstract class FavoriteUserRoomDatabase: RoomDatabase() {
     abstract fun favoriteUserDao(): FavoriteUserDao
     companion object {
@@ -16,7 +16,7 @@ abstract class FavoriteUserRoomDatabase: RoomDatabase() {
             if (INSTANCE == null) {
                 synchronized(FavoriteUserRoomDatabase::class.java) {
                     INSTANCE = Room.databaseBuilder(context.applicationContext,
-                        FavoriteUserRoomDatabase::class.java, "note_database")
+                        FavoriteUserRoomDatabase::class.java, "favorite_database")
                         .build()
                 }
             }

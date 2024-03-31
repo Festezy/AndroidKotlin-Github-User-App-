@@ -1,20 +1,20 @@
 package com.example.githubusernavigationdanapi.helper
 
 import androidx.recyclerview.widget.DiffUtil
-import com.example.githubusernavigationdanapi.database.FavoriteUser
+import com.example.githubusernavigationdanapi.database.FavoriteUserEntity
 
-class NoteDiffCallback(private val oldFavoriteUserList: List<FavoriteUser>, private val newFavoriteUserList: List<FavoriteUser>) :
+class NoteDiffCallback(private val oldFavoriteUserEntityList: List<FavoriteUserEntity>, private val newFavoriteUserEntityList: List<FavoriteUserEntity>) :
     DiffUtil.Callback() {
-    override fun getOldListSize(): Int = oldFavoriteUserList.size
+    override fun getOldListSize(): Int = oldFavoriteUserEntityList.size
 
-    override fun getNewListSize(): Int = newFavoriteUserList.size
+    override fun getNewListSize(): Int = newFavoriteUserEntityList.size
     override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-        return oldFavoriteUserList[oldItemPosition] == newFavoriteUserList[newItemPosition]
+        return oldFavoriteUserEntityList[oldItemPosition] == newFavoriteUserEntityList[newItemPosition]
     }
 
     override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-        val oldNote = oldFavoriteUserList[oldItemPosition]
-        val newNote = newFavoriteUserList[newItemPosition]
+        val oldNote = oldFavoriteUserEntityList[oldItemPosition]
+        val newNote = newFavoriteUserEntityList[newItemPosition]
         return oldNote.username == newNote.username && oldNote.avatarUrl == newNote.avatarUrl
     }
 }

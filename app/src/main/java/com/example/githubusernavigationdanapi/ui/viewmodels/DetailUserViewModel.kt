@@ -7,8 +7,13 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.githubusernavigationdanapi.data.response.DetailUserResponse
 import com.example.githubusernavigationdanapi.data.retrofit.ApiConfig
-import com.example.githubusernavigationdanapi.database.FavoriteUser
+import com.example.githubusernavigationdanapi.database.FavoriteUserDao
+import com.example.githubusernavigationdanapi.database.FavoriteUserEntity
+import com.example.githubusernavigationdanapi.database.FavoriteUserRoomDatabase
 import com.example.githubusernavigationdanapi.repository.FavoriteUserRepository
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -32,16 +37,22 @@ class DetailUserViewModel(application: Application): ViewModel() {
     }
 
     private val mFavoriteUserRepository: FavoriteUserRepository = FavoriteUserRepository(application)
+    private val mFavoriteDao: FavoriteUserDao = FavoriteUserRoomDatabase.getDatabase(application).favoriteUserDao()
 
-    fun insert(favoriteUser: FavoriteUser) {
-        mFavoriteUserRepository.insert(favoriteUser)
+    private val _isUserFavorite = MutableLiveData<FavoriteUserEntity>()
+    val isUserFavorite: LiveData<FavoriteUserEntity> = _isUserFavorite
+    fun insert(favoriteUserEntity: FavoriteUserEntity) {
+        mFavoriteUserRepository.insert(favoriteUserEntity)
     }
-    //    fun update(note: Note) {
-//        mNoteRepository.update(note)
-//    }
-//    fun delete(note: Note) {
-//        mNoteRepository.delete(note)
-//    }
+
+    fun getUserFavorite(username: String): LiveData<FavoriteUserEntity> = mFavoriteUserRepository.getUserFavorite(
+        username
+    )
+
+    fun delete(favoriteUserEntity: FavoriteUserEntity) {
+//        mFavoriteUserRepository.delete(id)
+        mFavoriteUserRepository.delete(favoriteUserEntity)
+    }
 
     init {
         fetchData()

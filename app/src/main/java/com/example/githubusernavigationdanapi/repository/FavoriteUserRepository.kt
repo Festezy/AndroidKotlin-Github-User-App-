@@ -2,27 +2,40 @@ package com.example.githubusernavigationdanapi.repository
 
 import android.app.Application
 import androidx.lifecycle.LiveData
-import com.example.githubusernavigationdanapi.database.FavoriteUser
+import androidx.lifecycle.MediatorLiveData
+import com.example.githubusernavigationdanapi.database.FavoriteUserEntity
 import com.example.githubusernavigationdanapi.database.FavoriteUserDao
 import com.example.githubusernavigationdanapi.database.FavoriteUserRoomDatabase
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
 class FavoriteUserRepository(application: Application) {
     private val mFavoriteUserDao: FavoriteUserDao
     private val executorService: ExecutorService = Executors.newSingleThreadExecutor()
+    private val result = MediatorLiveData<Result<List<FavoriteUserDao>>>()
+
     init {
         val db = FavoriteUserRoomDatabase.getDatabase(application)
         mFavoriteUserDao = db.favoriteUserDao()
     }
-    fun getAllNotes(): LiveData<List<FavoriteUser>> = mFavoriteUserDao.getAllNotes()
-    fun insert(favoriteUser: FavoriteUser) {
-        executorService.execute { mFavoriteUserDao.insert(favoriteUser) }
+
+    fun getAllNotes(): LiveData<List<FavoriteUserEntity>> = mFavoriteUserDao.getAllNotes()
+    fun insert(favoriteUserEntity: FavoriteUserEntity) {
+        executorService.execute { mFavoriteUserDao.insert(favoriteUserEntity) }
     }
-    fun delete(favoriteUser: FavoriteUser) {
-        executorService.execute { mFavoriteUserDao.delete(favoriteUser) }
+
+    fun getUserFavorite(username: String): LiveData<FavoriteUserEntity> {
+        return mFavoriteUserDao.getFavoriteUserByUsername(username)
     }
-    fun update(favoriteUser: FavoriteUser) {
-        executorService.execute { mFavoriteUserDao.update(favoriteUser) }
+
+    fun delete(favoriteUserEntity: FavoriteUserEntity) {
+        executorService.execute { mFavoriteUserDao.delete(favoriteUserEntity) }
+    }
+
+    fun update(favoriteUserEntity: FavoriteUserEntity) {
+        executorService.execute { mFavoriteUserDao.update(favoriteUserEntity) }
     }
 }

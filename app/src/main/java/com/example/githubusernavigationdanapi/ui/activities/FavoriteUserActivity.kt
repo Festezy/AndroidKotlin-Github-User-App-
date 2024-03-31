@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.githubusernavigationdanapi.database.FavoriteUser
 import com.example.githubusernavigationdanapi.databinding.ActivityFavoriteUserBinding
 import com.example.githubusernavigationdanapi.ui.adapter.FavoriteUserAdapter
 import com.example.githubusernavigationdanapi.ui.viewmodels.FavoriteUserViewModel
@@ -19,7 +18,6 @@ class FavoriteUserActivity : AppCompatActivity() {
         const val ALERT_DIALOG_CLOSE = 10
         const val ALERT_DIALOG_DELETE = 20
     }
-    private var favoriteUser: FavoriteUser? = null
     private lateinit var adapter: FavoriteUserAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {

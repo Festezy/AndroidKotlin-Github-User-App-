@@ -35,6 +35,7 @@ class UserAdapter(private val context: Context) :
             Intent(context, DetailUserActivity::class.java).also{
                 it.putExtra(DetailUserActivity.EXTRA_USERNAME, items.login)
                 it.putExtra(DetailUserActivity.EXTRA_URL, items.avatarUrl)
+                it.putExtra(DetailUserActivity.EXTRA_ID, items.id)
                 context.startActivity(it)
             }
         }

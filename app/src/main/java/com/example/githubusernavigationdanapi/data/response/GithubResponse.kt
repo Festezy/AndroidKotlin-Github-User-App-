@@ -1,6 +1,8 @@
 package com.example.githubusernavigationdanapi.data.response
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.parcelize.Parcelize
 
 data class GithubResponse(
 
@@ -14,6 +16,7 @@ data class GithubResponse(
 	val items: List<ItemsItem?>? = null
 )
 
+@Parcelize
 data class ItemsItem(
 
 	@field:SerializedName("gists_url")
@@ -72,4 +75,4 @@ data class ItemsItem(
 
 	@field:SerializedName("organizations_url")
 	val organizationsUrl: String? = null
-)
+) : Parcelable
