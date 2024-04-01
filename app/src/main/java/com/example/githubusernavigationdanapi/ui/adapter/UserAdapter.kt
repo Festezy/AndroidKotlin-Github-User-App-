@@ -12,7 +12,7 @@ import com.example.githubusernavigationdanapi.data.response.ItemsItem
 import com.example.githubusernavigationdanapi.databinding.ItemUsersBinding
 import com.example.githubusernavigationdanapi.ui.activities.DetailUserActivity
 
-class UserAdapter(private val context: Context) :
+class UserAdapter() :
     ListAdapter<ItemsItem, UserAdapter.MyViewHolder>(DIFF_CALLBACK) {
     class MyViewHolder(private val binding: ItemUsersBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -32,11 +32,11 @@ class UserAdapter(private val context: Context) :
         holder.bind(items)
 
         holder.itemView.setOnClickListener {
-            Intent(context, DetailUserActivity::class.java).also{
+            Intent(holder.itemView.context, DetailUserActivity::class.java).also{
                 it.putExtra(DetailUserActivity.EXTRA_USERNAME, items.login)
                 it.putExtra(DetailUserActivity.EXTRA_URL, items.avatarUrl)
                 it.putExtra(DetailUserActivity.EXTRA_ID, items.id)
-                context.startActivity(it)
+                holder.itemView.context.startActivity(it)
             }
         }
     }

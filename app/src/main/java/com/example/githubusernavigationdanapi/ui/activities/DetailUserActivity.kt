@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.annotation.StringRes
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
@@ -17,6 +18,8 @@ import com.example.githubusernavigationdanapi.ui.adapter.SectionsPagerAdapter
 import com.example.githubusernavigationdanapi.databinding.ActivityDetailUsersBinding
 import com.example.githubusernavigationdanapi.ui.viewmodels.DetailUserViewModel
 import com.example.githubusernavigationdanapi.helper.ViewModelFactory
+import com.example.githubusernavigationdanapi.preferences.SettingPreferences
+import com.example.githubusernavigationdanapi.preferences.dataStore
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 
@@ -27,13 +30,20 @@ class DetailUserActivity : AppCompatActivity() {
 
     private var isUserFavorite = false
 
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDetailUsersBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
 //        val detailUserViewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory())[DetailUserViewModel::class.java]
-        val detailUserViewModel = obtainViewModel(this@DetailUserActivity)
+//        val detailUserViewModel = obtainViewModel(this@DetailUserActivity)
+
+        val preferences = SettingPreferences.getInstance(application.dataStore)
+        val detailUserViewModel by viewModels<DetailUserViewModel>(){
+            ViewModelFactory.getInstance(application, preferences)
+        }
 
         val sectionsPagerAdapter = SectionsPagerAdapter(this)
         val viewPager: ViewPager2 = binding.viewPager
@@ -68,8 +78,8 @@ class DetailUserActivity : AppCompatActivity() {
         detailUserViewModel.isUserFavorite.observe(this@DetailUserActivity) {
             it.username = username
         }
+
         detailUserViewModel.getUserFavorite(username).observe(this@DetailUserActivity) {
-            Toast.makeText(this@DetailUserActivity, "$it", Toast.LENGTH_SHORT).show()
             if (it != null) {
                 isUserFavorite = true
                 favoriteUserEntity!!.id = it.id
@@ -117,8 +127,6 @@ class DetailUserActivity : AppCompatActivity() {
                             .show()
                     }
 
-//                    detailUserViewModel.delete(favoriteUserEntity!!.id)
-
                     Toast.makeText(this@DetailUserActivity, "Favorite dihapus", Toast.LENGTH_SHORT)
                         .show()
                 }
@@ -126,10 +134,10 @@ class DetailUserActivity : AppCompatActivity() {
         }
     }
 
-    private fun obtainViewModel(activity: AppCompatActivity): DetailUserViewModel {
-        val factory = ViewModelFactory.getInstance(activity.application)
-        return ViewModelProvider(activity, factory)[DetailUserViewModel::class.java]
-    }
+//    private fun obtainViewModel(activity: AppCompatActivity): DetailUserViewModel {
+//        val factory = ViewModelFactory.getInstance(activity.application)
+//        return ViewModelProvider(activity, factory)[DetailUserViewModel::class.java]
+//    }
 
     private fun setDataUser(userData: DetailUserResponse?) {
         with(binding) {

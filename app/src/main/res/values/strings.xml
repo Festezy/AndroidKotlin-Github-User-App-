@@ -19,5 +19,8 @@
     <string name="content_tab_text">This is Tab %1$d</string>
     <string name="user_name">username</string>
     <string name="name">name</string>
-    <string name="settings">settings</string>
+    <string name="Favorite">Favorite</string>
+    <string name="theme">Theme</string>
+
+    <string name="dark_mode">Dark Mode</string>
 </resources>
