@@ -39,7 +39,7 @@ class ViewModelFactory(
         } else if (modelClass.isAssignableFrom(MainViewModel::class.java)){
             return MainViewModel(preferences) as T
         } else if (modelClass.isAssignableFrom(DetailUserViewModel::class.java)) {
-            return DetailUserViewModel(mApplication) as T
+            return DetailUserViewModel(mApplication, preferences) as T
         } else if (modelClass.isAssignableFrom(FavoriteUserViewModel::class.java)) {
             return FavoriteUserViewModel(mApplication) as T
         }

@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.annotation.StringRes
@@ -53,6 +54,28 @@ class DetailUserActivity : AppCompatActivity() {
             tab.text = resources.getString(TAB_TITLES[position])
         }.attach()
         supportActionBar?.elevation = 0f
+
+        // merubah text color tablayout
+        detailUserViewModel.getThemeSettings().observe(this@DetailUserActivity){ isDarkModeActive->
+            val normalTextColor = if (isDarkModeActive) {
+                // Warna teks untuk tema gelap
+                ContextCompat.getColor(this, R.color.white)
+            } else {
+                // Warna teks untuk tema terang
+                ContextCompat.getColor(this, R.color.black)
+            }
+
+            val selectedTextColor = if (isDarkModeActive) {
+                // Warna teks terpilih untuk tema gelap
+                ContextCompat.getColor(this, R.color.white)
+            } else {
+                // Warna teks terpilih untuk tema terang
+                ContextCompat.getColor(this, R.color.black)
+            }
+
+            // Set tab text colors
+            tabs.setTabTextColors(normalTextColor, selectedTextColor)
+        }
 
         val username = intent.getStringExtra(EXTRA_USERNAME)
         val avatarUrl = intent.getStringExtra(EXTRA_URL)

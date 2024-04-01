@@ -3,9 +3,10 @@
     <style name="Base.Theme.GitHubUserNavigationDanAPI" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
          <item name="colorPrimary">@color/my_light_primary</item>
+<!--        <item name="colorSurface">@color/white</item>-->
+<!--        <item name="colorOnSurface">@color/black</item>-->
     </style>
 
     <style name="Theme.GitHubUserNavigationDanAPI" parent="Base.Theme.GitHubUserNavigationDanAPI" />
-
 
 </resources>

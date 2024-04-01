@@ -5,11 +5,13 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
 import com.example.githubusernavigationdanapi.data.response.DetailUserResponse
 import com.example.githubusernavigationdanapi.data.retrofit.ApiConfig
 import com.example.githubusernavigationdanapi.database.FavoriteUserDao
 import com.example.githubusernavigationdanapi.database.FavoriteUserEntity
 import com.example.githubusernavigationdanapi.database.FavoriteUserRoomDatabase
+import com.example.githubusernavigationdanapi.preferences.SettingPreferences
 import com.example.githubusernavigationdanapi.repository.FavoriteUserRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -18,7 +20,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class DetailUserViewModel(application: Application): ViewModel() {
+class DetailUserViewModel(application: Application, private val preferences: SettingPreferences): ViewModel() {
     private val _getUserDetail = MutableLiveData<DetailUserResponse>()
     val getUserData: LiveData<DetailUserResponse> = _getUserDetail
 
@@ -37,7 +39,6 @@ class DetailUserViewModel(application: Application): ViewModel() {
     }
 
     private val mFavoriteUserRepository: FavoriteUserRepository = FavoriteUserRepository(application)
-    private val mFavoriteDao: FavoriteUserDao = FavoriteUserRoomDatabase.getDatabase(application).favoriteUserDao()
 
     private val _isUserFavorite = MutableLiveData<FavoriteUserEntity>()
     val isUserFavorite: LiveData<FavoriteUserEntity> = _isUserFavorite
@@ -52,6 +53,10 @@ class DetailUserViewModel(application: Application): ViewModel() {
     fun delete(favoriteUserEntity: FavoriteUserEntity) {
 //        mFavoriteUserRepository.delete(id)
         mFavoriteUserRepository.delete(favoriteUserEntity)
+    }
+
+    fun getThemeSettings(): LiveData<Boolean> {
+        return preferences.getThemeSetting().asLiveData()
     }
 
     init {
