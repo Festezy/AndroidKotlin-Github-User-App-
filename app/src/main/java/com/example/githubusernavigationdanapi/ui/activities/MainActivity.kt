@@ -70,15 +70,15 @@ class MainActivity : AppCompatActivity() {
                 }
             }
 
-//            mainViewModel.getThemeSettings().observe(this@MainActivity) { isDarkModeActive: Boolean ->
-//                if (isDarkModeActive) {
-//                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-//                    switchTheme.isChecked = true
-//                } else {
-//                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-//                    switchTheme.isChecked = false
-//                }
-//            }
+            mainViewModel.getThemeSettings().observe(this@MainActivity) { isDarkModeActive: Boolean ->
+                if (isDarkModeActive) {
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+                    switchTheme.isChecked = true
+                } else {
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+                    switchTheme.isChecked = false
+                }
+            }
 //
 //            switchTheme.setOnCheckedChangeListener { _: CompoundButton?, isChecked: Boolean ->
 //                mainViewModel.saveThemeSetting(isChecked)
