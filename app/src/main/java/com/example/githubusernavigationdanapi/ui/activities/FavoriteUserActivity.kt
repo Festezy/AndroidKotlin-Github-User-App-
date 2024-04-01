@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.githubusernavigationdanapi.data.response.ItemsItem
 import com.example.githubusernavigationdanapi.databinding.ActivityFavoriteUserBinding
 import com.example.githubusernavigationdanapi.ui.adapter.FavoriteUserAdapter
 import com.example.githubusernavigationdanapi.ui.viewmodels.FavoriteUserViewModel
@@ -34,13 +35,21 @@ class FavoriteUserActivity : AppCompatActivity() {
             ViewModelFactory.getInstance(application, preferences)
         }
 
-        favoriteUserViewModel.getAllFavoriteUsers().observe(this) { noteList ->
-            if (noteList != null) {
-                adapter.setListNotes(noteList)
+        favoriteUserViewModel.getAllFavoriteUsers().observe(this) {
+            if (it != null) {
+                adapter.setListFavoriteUser(it)
             }
         }
 
         adapter = FavoriteUserAdapter()
+//        favoriteUserViewModel.getAllFavoriteUsers().observe(this) { users ->
+//            val items = arrayListOf<ItemsItem>()
+//            users.map {
+//                val item = ItemsItem(login = it.username, avatarUrl = it.avatarUrl)
+//                items.add(item)
+//            }
+//            adapter.setListFavoriteUser(items)
+//        }
 
         binding.rvFavorite.layoutManager = LinearLayoutManager(this)
         binding.rvFavorite.setHasFixedSize(true)

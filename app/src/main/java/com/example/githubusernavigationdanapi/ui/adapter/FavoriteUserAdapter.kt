@@ -1,17 +1,20 @@
 package com.example.githubusernavigationdanapi.ui.adapter
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.githubusernavigationdanapi.data.response.ItemsItem
 import com.example.githubusernavigationdanapi.database.FavoriteUserEntity
 import com.example.githubusernavigationdanapi.databinding.ItemFavoriteUserBinding
 import com.example.githubusernavigationdanapi.helper.NoteDiffCallback
+import com.example.githubusernavigationdanapi.ui.activities.DetailUserActivity
 
 class FavoriteUserAdapter : RecyclerView.Adapter<FavoriteUserAdapter.FavoriteUserViewHolder>() {
     private val listFavoriteUserEntity = ArrayList<FavoriteUserEntity>()
-    fun setListNotes(listFavoriteUserEntity: List<FavoriteUserEntity>) {
+    fun setListFavoriteUser(listFavoriteUserEntity: List<FavoriteUserEntity>) {
         val diffCallback = NoteDiffCallback(this.listFavoriteUserEntity, listFavoriteUserEntity)
         val diffResult = DiffUtil.calculateDiff(diffCallback)
         this.listFavoriteUserEntity.clear()
@@ -22,13 +25,13 @@ class FavoriteUserAdapter : RecyclerView.Adapter<FavoriteUserAdapter.FavoriteUse
         fun bind(favoriteUserEntity: FavoriteUserEntity) {
             with(binding) {
                 tvName.text = favoriteUserEntity.username
-//                imgPhoto.setImageURI(Uri.parse(favoriteUser.avatarUrl))
                 Glide.with(itemView.context).load(favoriteUserEntity.avatarUrl).into(binding.imgPhoto)
-//                cvItemNote.setOnClickListener {
-//                    val intent = Intent(it.context, NoteAddUpdateActivity::class.java)
-//                    intent.putExtra(NoteAddUpdateActivity.EXTRA_NOTE, note)
-//                    it.context.startActivity(intent)
-//                }
+                binding.cardView.setOnClickListener {
+                    val intent = Intent(it.context, DetailUserActivity::class.java)
+                    intent.putExtra(DetailUserActivity.EXTRA_USERNAME, favoriteUserEntity.username)
+                    intent.putExtra(DetailUserActivity.EXTRA_URL, favoriteUserEntity.avatarUrl)
+                    it.context.startActivity(intent)
+                }
             }
         }
     }
