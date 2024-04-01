@@ -9,6 +9,6 @@ import com.example.githubusernavigationdanapi.repository.FavoriteUserRepository
 class FavoriteUserViewModel(application: Application) : ViewModel() {
     private val mFavoriteUserRepository: FavoriteUserRepository = FavoriteUserRepository(application)
 
-    fun getAllNotes(): LiveData<List<FavoriteUserEntity>> = mFavoriteUserRepository.getAllNotes()
+    fun getAllFavoriteUsers(): LiveData<List<FavoriteUserEntity>> = mFavoriteUserRepository.getAllNotes()
 
 }

@@ -3,7 +3,6 @@ package com.example.githubusernavigationdanapi.ui.activities
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.githubusernavigationdanapi.databinding.ActivityFavoriteUserBinding
 import com.example.githubusernavigationdanapi.ui.adapter.FavoriteUserAdapter
@@ -11,7 +10,6 @@ import com.example.githubusernavigationdanapi.ui.viewmodels.FavoriteUserViewMode
 import com.example.githubusernavigationdanapi.helper.ViewModelFactory
 import com.example.githubusernavigationdanapi.preferences.SettingPreferences
 import com.example.githubusernavigationdanapi.preferences.dataStore
-import com.example.githubusernavigationdanapi.ui.viewmodels.DetailUserViewModel
 
 class FavoriteUserActivity : AppCompatActivity() {
     private lateinit var binding: ActivityFavoriteUserBinding
@@ -36,7 +34,7 @@ class FavoriteUserActivity : AppCompatActivity() {
             ViewModelFactory.getInstance(application, preferences)
         }
 
-        favoriteUserViewModel.getAllNotes().observe(this) { noteList ->
+        favoriteUserViewModel.getAllFavoriteUsers().observe(this) { noteList ->
             if (noteList != null) {
                 adapter.setListNotes(noteList)
             }

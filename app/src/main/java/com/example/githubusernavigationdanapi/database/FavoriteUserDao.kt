@@ -17,7 +17,7 @@ interface FavoriteUserDao {
     @Delete
     fun delete(favoriteUserEntity: FavoriteUserEntity)
     @Query("SELECT * from FavoriteUserEntity")
-    fun getAllNotes(): LiveData<List<FavoriteUserEntity>>
+    fun getAllFavoriteUsers(): LiveData<List<FavoriteUserEntity>>
 
     @Query("SELECT * FROM FavoriteUserEntity WHERE username = :username")
     fun getFavoriteUserByUsername(username: String): LiveData<FavoriteUserEntity>
