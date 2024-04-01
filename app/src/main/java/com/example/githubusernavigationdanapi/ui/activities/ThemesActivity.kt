@@ -21,21 +21,14 @@ class ThemesActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val preferences = SettingPreferences.getInstance(application.dataStore)
-        val themesViewModel = ViewModelProvider(this@ThemesActivity,
+        val themesViewModel = ViewModelProvider(
+            this@ThemesActivity,
             ViewModelFactory(application, preferences)
         )[ThemesViewModel::class.java]
 
         with(binding) {
-            switchTheme.setOnCheckedChangeListener { _: CompoundButton?, isChecked: Boolean ->
-                if (isChecked) {
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-                    switchTheme.isChecked = true
-                } else {
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-                    switchTheme.isChecked = false
-                }
-
-                themesViewModel.getThemeSettings().observe(this@ThemesActivity) { isDarkModeActive: Boolean ->
+            themesViewModel.getThemeSettings()
+                .observe(this@ThemesActivity) { isDarkModeActive: Boolean ->
                     if (isDarkModeActive) {
                         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
                         switchTheme.isChecked = true
@@ -45,9 +38,8 @@ class ThemesActivity : AppCompatActivity() {
                     }
                 }
 
-                switchTheme.setOnCheckedChangeListener { _: CompoundButton?, isChecked: Boolean ->
-                    themesViewModel.saveThemeSetting(isChecked)
-                }
+            switchTheme.setOnCheckedChangeListener { _: CompoundButton?, isChecked: Boolean ->
+                themesViewModel.saveThemeSetting(isChecked)
             }
         }
     }

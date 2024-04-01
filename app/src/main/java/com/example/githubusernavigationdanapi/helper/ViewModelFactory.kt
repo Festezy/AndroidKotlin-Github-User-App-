@@ -10,7 +10,7 @@ import com.example.githubusernavigationdanapi.ui.viewmodels.MainViewModel
 import com.example.githubusernavigationdanapi.ui.viewmodels.ThemesViewModel
 
 class ViewModelFactory(
-    private val mApplication: Application?,
+    private val mApplication: Application,
     private var preferences: SettingPreferences
 ) : ViewModelProvider.NewInstanceFactory() {
     companion object {
@@ -39,9 +39,9 @@ class ViewModelFactory(
         } else if (modelClass.isAssignableFrom(MainViewModel::class.java)){
             return MainViewModel(preferences) as T
         } else if (modelClass.isAssignableFrom(DetailUserViewModel::class.java)) {
-            return DetailUserViewModel(mApplication!!) as T
+            return DetailUserViewModel(mApplication) as T
         } else if (modelClass.isAssignableFrom(FavoriteUserViewModel::class.java)) {
-            return FavoriteUserViewModel(mApplication!!) as T
+            return FavoriteUserViewModel(mApplication) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
     }
