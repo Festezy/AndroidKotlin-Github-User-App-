@@ -1,4 +1,4 @@
-package com.example.githubusernavigationdanapi.ui.fragments
+package com.example.githubusernavigationdanapi.ui.layout.fragments
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,15 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.githubusernavigationdanapi.data.response.ItemsItem
-import com.example.githubusernavigationdanapi.data.retrofit.ApiConfig
+import com.example.githubusernavigationdanapi.data.remote.response.ItemsItem
 import com.example.githubusernavigationdanapi.databinding.FragmentFollowBinding
 import com.example.githubusernavigationdanapi.ui.adapter.FollowAdapter
 import com.example.githubusernavigationdanapi.ui.viewmodels.FollowFragmentViewModel
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-
 class FollowFragment : Fragment() {
     private var _binding: FragmentFollowBinding? = null
     private val binding get() = _binding!!
@@ -23,7 +18,7 @@ class FollowFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         _binding = FragmentFollowBinding.inflate(inflater, container, false)
         return binding.root

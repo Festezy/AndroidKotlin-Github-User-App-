@@ -1,26 +1,23 @@
-package com.example.githubusernavigationdanapi.ui.activities
+package com.example.githubusernavigationdanapi.ui.layout.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.annotation.StringRes
 import androidx.core.content.ContextCompat
-import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.example.githubusernavigationdanapi.R
-import com.example.githubusernavigationdanapi.data.response.DetailUserResponse
-import com.example.githubusernavigationdanapi.database.FavoriteUserEntity
+import com.example.githubusernavigationdanapi.data.remote.response.DetailUserResponse
+import com.example.githubusernavigationdanapi.data.local.database.FavoriteUserEntity
 import com.example.githubusernavigationdanapi.ui.adapter.SectionsPagerAdapter
 import com.example.githubusernavigationdanapi.databinding.ActivityDetailUsersBinding
 import com.example.githubusernavigationdanapi.ui.viewmodels.DetailUserViewModel
 import com.example.githubusernavigationdanapi.helper.ViewModelFactory
-import com.example.githubusernavigationdanapi.preferences.SettingPreferences
-import com.example.githubusernavigationdanapi.preferences.dataStore
+import com.example.githubusernavigationdanapi.data.local.preferences.SettingPreferences
+import com.example.githubusernavigationdanapi.data.local.preferences.dataStore
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 
@@ -42,7 +39,7 @@ class DetailUserActivity : AppCompatActivity() {
 //        val detailUserViewModel = obtainViewModel(this@DetailUserActivity)
 
         val preferences = SettingPreferences.getInstance(application.dataStore)
-        val detailUserViewModel by viewModels<DetailUserViewModel>(){
+        val detailUserViewModel by viewModels<DetailUserViewModel>{
             ViewModelFactory.getInstance(application, preferences)
         }
 
@@ -187,8 +184,6 @@ class DetailUserActivity : AppCompatActivity() {
             R.string.tab_text_2
         )
         const val EXTRA_USERNAME = "extra_username"
-        const val EXTRA_FAVORITE = "extra_favorite"
-        const val EXTRA_ID = "extra_id"
         const val EXTRA_URL = "extra_url"
     }
 }

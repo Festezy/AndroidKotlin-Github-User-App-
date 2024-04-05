@@ -1,14 +1,12 @@
 package com.example.githubusernavigationdanapi.ui.adapter
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.githubusernavigationdanapi.data.response.ItemsItem
-import com.example.githubusernavigationdanapi.data.response.UserFollowsResponseItem
+import com.example.githubusernavigationdanapi.data.remote.response.ItemsItem
 import com.example.githubusernavigationdanapi.databinding.ItemUserFollowBinding
 
 class FollowAdapter(): ListAdapter<ItemsItem, FollowAdapter.MyViewHolder>(DIFF_CALLBACK) {

@@ -1,4 +1,4 @@
-package com.example.githubusernavigationdanapi.data.retrofit
+package com.example.githubusernavigationdanapi.data.remote.retrofit
 
 import com.example.githubusernavigationdanapi.BuildConfig
 import okhttp3.Interceptor
@@ -26,8 +26,8 @@ class ApiConfig {
                 chain.proceed(requestHeaders)
             }
 
-            val loggingInterceptor = HttpLoggingInterceptor()
-                .setLevel(HttpLoggingInterceptor.Level.BODY)
+//            val loggingInterceptor = HttpLoggingInterceptor()
+//                .setLevel(HttpLoggingInterceptor.Level.BODY)
 
 //            val client = OkHttpClient.Builder()
 //                .addInterceptor(loggingInterceptor).build()

@@ -1,6 +1,5 @@
 package com.example.githubusernavigationdanapi.ui.adapter
 
-import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -8,9 +7,9 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.githubusernavigationdanapi.data.response.ItemsItem
+import com.example.githubusernavigationdanapi.data.remote.response.ItemsItem
 import com.example.githubusernavigationdanapi.databinding.ItemUsersBinding
-import com.example.githubusernavigationdanapi.ui.activities.DetailUserActivity
+import com.example.githubusernavigationdanapi.ui.layout.activities.DetailUserActivity
 
 class UserAdapter() :
     ListAdapter<ItemsItem, UserAdapter.MyViewHolder>(DIFF_CALLBACK) {
@@ -35,7 +34,6 @@ class UserAdapter() :
             Intent(holder.itemView.context, DetailUserActivity::class.java).also{
                 it.putExtra(DetailUserActivity.EXTRA_USERNAME, items.login)
                 it.putExtra(DetailUserActivity.EXTRA_URL, items.avatarUrl)
-                it.putExtra(DetailUserActivity.EXTRA_ID, items.id)
                 holder.itemView.context.startActivity(it)
             }
         }

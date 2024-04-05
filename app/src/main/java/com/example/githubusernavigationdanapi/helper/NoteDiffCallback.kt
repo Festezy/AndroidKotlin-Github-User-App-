@@ -1,7 +1,7 @@
 package com.example.githubusernavigationdanapi.helper
 
 import androidx.recyclerview.widget.DiffUtil
-import com.example.githubusernavigationdanapi.database.FavoriteUserEntity
+import com.example.githubusernavigationdanapi.data.local.database.FavoriteUserEntity
 
 class NoteDiffCallback(private val oldFavoriteUserEntityList: List<FavoriteUserEntity>, private val newFavoriteUserEntityList: List<FavoriteUserEntity>) :
     DiffUtil.Callback() {

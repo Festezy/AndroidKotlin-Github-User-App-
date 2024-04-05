@@ -1,20 +1,14 @@
-package com.example.githubusernavigationdanapi.data.retrofit
+package com.example.githubusernavigationdanapi.data.remote.retrofit
 
-import com.example.githubusernavigationdanapi.data.response.DetailUserResponse
-import com.example.githubusernavigationdanapi.data.response.GithubResponse
-import com.example.githubusernavigationdanapi.data.response.ItemsItem
+import com.example.githubusernavigationdanapi.data.remote.response.DetailUserResponse
+import com.example.githubusernavigationdanapi.data.remote.response.GithubResponse
+import com.example.githubusernavigationdanapi.data.remote.response.ItemsItem
 import retrofit2.Call
 import retrofit2.http.GET
-import retrofit2.http.Headers
 import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface ApiService {
-//    @GET("search/users")
-//    @Headers("Authorization: token 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")
-//    fun getUsers(
-//        @Query("q") username: String
-//    ): Call<GithubResponse>
 
     @GET("search/users")
     fun getUsers(

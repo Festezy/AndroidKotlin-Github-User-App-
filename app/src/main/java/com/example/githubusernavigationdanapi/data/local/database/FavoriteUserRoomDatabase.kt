@@ -1,4 +1,4 @@
-package com.example.githubusernavigationdanapi.database
+package com.example.githubusernavigationdanapi.data.local.database
 
 import android.content.Context
 import androidx.room.Database

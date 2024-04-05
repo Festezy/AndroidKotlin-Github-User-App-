@@ -6,11 +6,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.githubusernavigationdanapi.data.response.ItemsItem
-import com.example.githubusernavigationdanapi.database.FavoriteUserEntity
+import com.example.githubusernavigationdanapi.data.local.database.FavoriteUserEntity
 import com.example.githubusernavigationdanapi.databinding.ItemFavoriteUserBinding
 import com.example.githubusernavigationdanapi.helper.NoteDiffCallback
-import com.example.githubusernavigationdanapi.ui.activities.DetailUserActivity
+import com.example.githubusernavigationdanapi.ui.layout.activities.DetailUserActivity
 
 class FavoriteUserAdapter : RecyclerView.Adapter<FavoriteUserAdapter.FavoriteUserViewHolder>() {
     private val listFavoriteUserEntity = ArrayList<FavoriteUserEntity>()

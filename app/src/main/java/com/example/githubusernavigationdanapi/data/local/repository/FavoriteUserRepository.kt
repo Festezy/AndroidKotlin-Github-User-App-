@@ -1,18 +1,17 @@
-package com.example.githubusernavigationdanapi.repository
+package com.example.githubusernavigationdanapi.data.local.repository
 
 import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
-import com.example.githubusernavigationdanapi.database.FavoriteUserEntity
-import com.example.githubusernavigationdanapi.database.FavoriteUserDao
-import com.example.githubusernavigationdanapi.database.FavoriteUserRoomDatabase
+import com.example.githubusernavigationdanapi.data.local.database.FavoriteUserEntity
+import com.example.githubusernavigationdanapi.data.local.database.FavoriteUserDao
+import com.example.githubusernavigationdanapi.data.local.database.FavoriteUserRoomDatabase
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
 class FavoriteUserRepository(application: Application) {
     private val mFavoriteUserDao: FavoriteUserDao
     private val executorService: ExecutorService = Executors.newSingleThreadExecutor()
-    private val result = MediatorLiveData<Result<List<FavoriteUserDao>>>()
 
     init {
         val db = FavoriteUserRoomDatabase.getDatabase(application)
@@ -31,8 +30,4 @@ class FavoriteUserRepository(application: Application) {
     fun delete(favoriteUserEntity: FavoriteUserEntity) {
         executorService.execute { mFavoriteUserDao.delete(favoriteUserEntity) }
     }
-//
-//    fun update(favoriteUserEntity: FavoriteUserEntity) {
-//        executorService.execute { mFavoriteUserDao.update(favoriteUserEntity) }
-//    }
 }

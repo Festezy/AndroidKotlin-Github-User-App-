@@ -5,9 +5,9 @@ import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.githubusernavigationdanapi.data.response.ItemsItem
-import com.example.githubusernavigationdanapi.data.retrofit.ApiConfig
-import com.example.githubusernavigationdanapi.ui.fragments.FollowFragment
+import com.example.githubusernavigationdanapi.data.remote.response.ItemsItem
+import com.example.githubusernavigationdanapi.data.remote.retrofit.ApiConfig
+import com.example.githubusernavigationdanapi.ui.layout.fragments.FollowFragment
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

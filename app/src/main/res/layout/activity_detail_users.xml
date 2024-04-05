@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp"
-    tools:context=".ui.activities.DetailUserActivity">
+    tools:context=".ui.layout.activities.DetailUserActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout"
@@ -181,7 +181,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0"
-        app:srcCompat="@drawable/baseline_favorite_border_24" />
+        app:srcCompat="@drawable/baseline_favorite_border_24"
+        android:contentDescription="@string/favoriteadd" />
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

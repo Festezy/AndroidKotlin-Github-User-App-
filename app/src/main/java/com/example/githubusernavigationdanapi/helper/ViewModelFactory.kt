@@ -3,7 +3,7 @@ package com.example.githubusernavigationdanapi.helper
 import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.githubusernavigationdanapi.preferences.SettingPreferences
+import com.example.githubusernavigationdanapi.data.local.preferences.SettingPreferences
 import com.example.githubusernavigationdanapi.ui.viewmodels.DetailUserViewModel
 import com.example.githubusernavigationdanapi.ui.viewmodels.FavoriteUserViewModel
 import com.example.githubusernavigationdanapi.ui.viewmodels.MainViewModel
@@ -25,11 +25,6 @@ class ViewModelFactory(
             }
             return INSTANCE as ViewModelFactory
         }
-    }
-//
-//    private lateinit var preferences: SettingPreferences
-    fun getPreferences(preferences: SettingPreferences) {
-        this.preferences = preferences
     }
 
     @Suppress("UNCHECKED_CAST")

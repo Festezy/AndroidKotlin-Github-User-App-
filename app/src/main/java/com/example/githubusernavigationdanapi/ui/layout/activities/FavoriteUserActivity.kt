@@ -1,26 +1,20 @@
-package com.example.githubusernavigationdanapi.ui.activities
+package com.example.githubusernavigationdanapi.ui.layout.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.githubusernavigationdanapi.data.response.ItemsItem
 import com.example.githubusernavigationdanapi.databinding.ActivityFavoriteUserBinding
 import com.example.githubusernavigationdanapi.ui.adapter.FavoriteUserAdapter
 import com.example.githubusernavigationdanapi.ui.viewmodels.FavoriteUserViewModel
 import com.example.githubusernavigationdanapi.helper.ViewModelFactory
-import com.example.githubusernavigationdanapi.preferences.SettingPreferences
-import com.example.githubusernavigationdanapi.preferences.dataStore
+import com.example.githubusernavigationdanapi.data.local.preferences.SettingPreferences
+import com.example.githubusernavigationdanapi.data.local.preferences.dataStore
 
 class FavoriteUserActivity : AppCompatActivity() {
     private lateinit var binding: ActivityFavoriteUserBinding
-    companion object {
-        const val EXTRA_NOTE = "extra_note"
-        const val ALERT_DIALOG_CLOSE = 10
-        const val ALERT_DIALOG_DELETE = 20
-    }
-    private lateinit var adapter: FavoriteUserAdapter
 
+    private lateinit var adapter: FavoriteUserAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

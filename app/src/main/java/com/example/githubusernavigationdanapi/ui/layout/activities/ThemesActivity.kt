@@ -1,16 +1,14 @@
-package com.example.githubusernavigationdanapi.ui.activities
+package com.example.githubusernavigationdanapi.ui.layout.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.CompoundButton
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.ViewModelProvider
-import com.example.githubusernavigationdanapi.R
 import com.example.githubusernavigationdanapi.databinding.ActivityThemesBinding
-import com.example.githubusernavigationdanapi.helper.ThemeViewModelFactory
 import com.example.githubusernavigationdanapi.helper.ViewModelFactory
-import com.example.githubusernavigationdanapi.preferences.SettingPreferences
-import com.example.githubusernavigationdanapi.preferences.dataStore
+import com.example.githubusernavigationdanapi.data.local.preferences.SettingPreferences
+import com.example.githubusernavigationdanapi.data.local.preferences.dataStore
 import com.example.githubusernavigationdanapi.ui.viewmodels.ThemesViewModel
 
 class ThemesActivity : AppCompatActivity() {

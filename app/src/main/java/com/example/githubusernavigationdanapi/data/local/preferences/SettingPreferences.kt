@@ -1,4 +1,4 @@
-package com.example.githubusernavigationdanapi.preferences
+package com.example.githubusernavigationdanapi.data.local.preferences
 
 import android.content.Context
 import androidx.datastore.core.DataStore

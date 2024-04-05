@@ -23,4 +23,5 @@
     <string name="theme">Theme</string>
 
     <string name="dark_mode">Dark Mode</string>
+    <string name="favoriteadd">favoriteAdd</string>
 </resources>

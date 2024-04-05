@@ -1,4 +1,3 @@
-import java.util.Properties
 
 plugins {
     id("com.android.application")
@@ -19,6 +18,13 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        /**
+         * Set the Room database schema export location for debug build to inspect the database
+         */
+        ksp {
+            arg("room.schemaLocation", "$projectDir/schemas")
+        }
 
         buildConfigField("String", "KEY", "\"YOUR_KEY\"")
         buildConfigField ("String", "BASE_URL", "\"https://api.github.com/\"")
