@@ -17,7 +17,6 @@ import com.example.githubusernavigationdanapi.data.local.preferences.SettingPref
 import com.example.githubusernavigationdanapi.data.local.preferences.dataStore
 import com.example.githubusernavigationdanapi.ui.adapter.UserAdapter
 import com.example.githubusernavigationdanapi.ui.viewmodels.MainViewModel
-
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private var menu: Menu? = null
@@ -55,12 +54,14 @@ class MainActivity : AppCompatActivity() {
 
                     false
                 }
+
             topAppBar.setOnMenuItemClickListener {
                 when (it.itemId) {
                     R.id.Favorite -> {
                         startActivity(Intent(this@MainActivity, FavoriteUserActivity::class.java))
                         true
                     }
+
                     R.id.themes -> {
                         startActivity(Intent(this@MainActivity, ThemesActivity::class.java))
                         true
@@ -70,29 +71,20 @@ class MainActivity : AppCompatActivity() {
                 }
             }
 
-            mainViewModel.getThemeSettings().observe(this@MainActivity) { isDarkModeActive: Boolean ->
-                if (isDarkModeActive) {
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-                    switchTheme.isChecked = true
-
-//                    if (topAppBar.id == R.id.Favorite){
-//                        topAppBar.setOnMenuItemClickListener {
-//                            when(it.itemId){
-//                                R.id.Favorite -> R.id.Favorite.se
-//                            }
-//                        }
-//                    }
-                } else {
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-                    switchTheme.isChecked = false
-                    this@MainActivity.menu?.findItem(R.id.Favorite)?.setIcon(R.drawable.baseline_favorite_24_white)
-                    this@MainActivity.menu?.findItem(R.id.themes)?.setIcon(R.drawable.baseline_settings_24)
+            mainViewModel.getThemeSettings()
+                .observe(this@MainActivity) { isDarkModeActive: Boolean ->
+                    if (isDarkModeActive) {
+                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+                        switchTheme.isChecked = true
+                    } else {
+                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+                        switchTheme.isChecked = false
+                        this@MainActivity.menu?.findItem(R.id.Favorite)
+                            ?.setIcon(R.drawable.baseline_favorite_24_white)
+                        this@MainActivity.menu?.findItem(R.id.themes)
+                            ?.setIcon(R.drawable.baseline_settings_24)
+                    }
                 }
-            }
-//
-//            switchTheme.setOnCheckedChangeListener { _: CompoundButton?, isChecked: Boolean ->
-//                mainViewModel.saveThemeSetting(isChecked)
-//            }
 
         }
     }

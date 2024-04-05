@@ -4,16 +4,21 @@ import com.example.githubusernavigationdanapi.data.remote.response.DetailUserRes
 import com.example.githubusernavigationdanapi.data.remote.response.GithubResponse
 import com.example.githubusernavigationdanapi.data.remote.response.ItemsItem
 import retrofit2.Call
+import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface ApiService {
 
+//    @GET("search/users")
+//    suspend fun getUsers(
+//        @Query("q") username: String
+//    ): Call<GithubResponse>
     @GET("search/users")
-    fun getUsers(
+    suspend fun getUsers(
         @Query("q") username: String
-    ): Call<GithubResponse>
+    ): Response<GithubResponse>
 
     @GET("users/{username}")
     fun getDetailUser(@Path("username") username: String): Call<DetailUserResponse>

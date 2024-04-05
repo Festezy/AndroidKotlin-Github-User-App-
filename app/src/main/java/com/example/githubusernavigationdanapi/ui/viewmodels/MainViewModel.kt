@@ -1,21 +1,15 @@
 package com.example.githubusernavigationdanapi.ui.viewmodels
 
 import android.util.Log
-import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
-import com.example.githubusernavigationdanapi.data.remote.response.GithubResponse
 import com.example.githubusernavigationdanapi.data.remote.response.ItemsItem
 import com.example.githubusernavigationdanapi.data.remote.retrofit.ApiConfig
 import com.example.githubusernavigationdanapi.data.local.preferences.SettingPreferences
-import com.example.githubusernavigationdanapi.ui.layout.activities.MainActivity
 import kotlinx.coroutines.launch
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class MainViewModel(private val preferences: SettingPreferences): ViewModel() {
     private val _getUserData = MutableLiveData<List<ItemsItem?>?>()
@@ -30,8 +24,10 @@ class MainViewModel(private val preferences: SettingPreferences): ViewModel() {
     }
     fun fetchData() {
         // Retrieve data based on the current search query
-        _searchQuery.value?.let { username ->
-            getUser(username)
+        viewModelScope.launch {
+            _searchQuery.value?.let { username ->
+                getUser(username)
+            }
         }
     }
 
@@ -42,29 +38,40 @@ class MainViewModel(private val preferences: SettingPreferences): ViewModel() {
     init {
         fetchData()
     }
-    private fun getUser(username: String) {
+    private suspend fun getUser(username: String) {
         _isLoading.value = true
-        val client = ApiConfig.getApiService().getUsers(username)
-        client.enqueue(object : Callback<GithubResponse> {
-            override fun onResponse(
-                call: Call<GithubResponse>,
-                response: Response<GithubResponse>
-            ) {
-                if (response.isSuccessful) {
-                    _isLoading.value = false
-                    Log.d("MainActivity", "isSuccessful: ${response.body()}")
-//                    setUserData(response.body()!!.items)
-                    _getUserData.value = response.body()!!.items
-                } else {
-                    Log.d("MainActivity", "onFailure: ${response.message()}")
-                }
-            }
-
-            override fun onFailure(call: Call<GithubResponse>, t: Throwable) {
-                Log.d("MainActivity", "onFailure: ${t.message}")
-                val context = MainActivity()
-                Toast.makeText(context.applicationContext, "onFailure: ${t.message}", Toast.LENGTH_SHORT).show()
-            }
-        })
+        try {
+            val responseCall = ApiConfig.getApiService().getUsers(username)
+            _getUserData.value = responseCall.body()!!.items
+        } catch (e: Exception){
+            // Tangani error di sini
+            Log.e("MainViewModel", "Error fetching user data: ${e.message}")
+            // Misalnya, Anda dapat menetapkan data yang sesuai ke _getUserData
+            _getUserData.value = emptyList()
+        }
+        _isLoading.value = false
+//        val responseCall = ApiConfig.getApiService().getUsers(username)
+        // change Call<GithubResponse> in interface fun getUsers
+//        responseCall.enqueue(object : Callback<GithubResponse> {
+//            override fun onResponse(
+//                call: Call<GithubResponse>,
+//                response: Response<GithubResponse>
+//            ) {
+//                if (response.isSuccessful) {
+//                    _isLoading.value = false
+//                    Log.d("MainActivity", "isSuccessful: ${response.body()}")
+////                    setUserData(response.body()!!.items)
+//                    _getUserData.value = response.body()!!.items
+//                } else {
+//                    Log.d("MainActivity", "onFailure: ${response.message()}")
+//                }
+//            }
+//
+//            override fun onFailure(call: Call<GithubResponse>, t: Throwable) {
+//                Log.d("MainActivity", "onFailure: ${t.message}")
+//                val context = MainActivity()
+//                Toast.makeText(context.applicationContext, "onFailure: ${t.message}", Toast.LENGTH_SHORT).show()
+//            }
+//        })
     }
 }

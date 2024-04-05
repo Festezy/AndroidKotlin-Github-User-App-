@@ -26,7 +26,7 @@ android {
             arg("room.schemaLocation", "$projectDir/schemas")
         }
 
-        buildConfigField("String", "KEY", "\"YOUR_KEY\"")
+        buildConfigField("String", "KEY", "\"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\"")
         buildConfigField ("String", "BASE_URL", "\"https://api.github.com/\"")
     }
 
