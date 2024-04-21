@@ -28,8 +28,6 @@ class DetailUserActivity : AppCompatActivity() {
 
     private var isUserFavorite = false
 
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDetailUsersBinding.inflate(layoutInflater)
@@ -80,7 +78,7 @@ class DetailUserActivity : AppCompatActivity() {
         detailUserViewModel.setSearchQuery(username!!)
         detailUserViewModel.fetchData()
 
-        detailUserViewModel.getUserData.observe(this@DetailUserActivity) {
+        detailUserViewModel.getUserDetail.observe(this@DetailUserActivity) {
             setDataUser(it)
 
         }

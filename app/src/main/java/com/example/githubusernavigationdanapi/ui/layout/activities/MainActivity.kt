@@ -8,6 +8,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.githubusernavigationdanapi.R
 import com.example.githubusernavigationdanapi.data.remote.response.ItemsItem
@@ -17,6 +18,9 @@ import com.example.githubusernavigationdanapi.data.local.preferences.SettingPref
 import com.example.githubusernavigationdanapi.data.local.preferences.dataStore
 import com.example.githubusernavigationdanapi.ui.adapter.UserAdapter
 import com.example.githubusernavigationdanapi.ui.viewmodels.MainViewModel
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
+
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private var menu: Menu? = null
@@ -32,28 +36,26 @@ class MainActivity : AppCompatActivity() {
             ViewModelFactory(application, preferences)
         )[MainViewModel::class.java]
 
-
         with(binding) {
             searchView.setupWithSearchBar(searchBar)
-            searchView
-                .editText
-                .setOnEditorActionListener { _, _, _ ->
-                    searchView.hide()
-                    Toast.makeText(this@MainActivity, searchView.text, Toast.LENGTH_SHORT).show()
+            searchView.editText.setOnEditorActionListener { _, _, _ ->
+                searchView.hide()
+                Toast.makeText(this@MainActivity, searchView.text, Toast.LENGTH_SHORT).show()
 
-                    mainViewModel.setSearchQuery(searchView.text.toString())
-                    mainViewModel.fetchData()
+                mainViewModel.setSearchQuery(searchView.text.toString())
+                mainViewModel.fetchData()
+                false
+            }
 
-                    mainViewModel.getUserData.observe(this@MainActivity) {
-                        setUserData(it)
-                    }
+            mainViewModel.isLoading.observe(this@MainActivity) {
+                showLoading(it)
+            }
+            lifecycleScope.launch {
 
-                    mainViewModel.isLoading.observe(this@MainActivity) {
-                        showLoading(it)
-                    }
-
-                    false
+                mainViewModel.getUserList.collectLatest {
+                    setUserData(it)
                 }
+            }
 
             topAppBar.setOnMenuItemClickListener {
                 when (it.itemId) {
@@ -89,11 +91,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.option_menu, menu)
-        return super.onCreateOptionsMenu(menu)
-    }
-
     private fun setUserData(items: List<ItemsItem?>?) {
         val adapter = UserAdapter()
         adapter.submitList(items)
@@ -113,5 +110,8 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.option_menu, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
 }
