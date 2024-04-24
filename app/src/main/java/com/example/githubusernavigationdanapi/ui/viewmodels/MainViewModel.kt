@@ -21,7 +21,11 @@ class MainViewModel(private val preferences: SettingPreferences): ViewModel() {
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading = _isLoading
 
-    fun setSearchQuery(username: String) {
+    init {
+        fetchUserList()
+    }
+
+    fun inputSearchQuery(username: String) {
         _searchQuery.value = username
     }
     fun fetchUserList() =
@@ -36,9 +40,6 @@ class MainViewModel(private val preferences: SettingPreferences): ViewModel() {
         return preferences.getThemeSetting().asLiveData()
     }
 
-    init {
-        fetchUserList()
-    }
     private suspend fun getUser(username: String) {
         _isLoading.value = true
         try {

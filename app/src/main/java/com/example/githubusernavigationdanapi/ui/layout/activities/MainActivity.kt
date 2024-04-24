@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity() {
     private var menu: Menu? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Thread.sleep(1500)
+        Thread.sleep(700)
         installSplashScreen()
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -54,7 +54,7 @@ class MainActivity : AppCompatActivity() {
             searchView.editText.setOnEditorActionListener { _, _, _ ->
                 searchView.hide()
                 // mengambil string dari text yang di input di search bar/view dan mengambil List User
-                mainViewModel.setSearchQuery(searchView.text.toString())
+                mainViewModel.inputSearchQuery(searchView.text.toString())
                 mainViewModel.fetchUserList()
                 false
             }
